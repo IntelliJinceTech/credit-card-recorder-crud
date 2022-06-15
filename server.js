@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express();
+const PORT = 8001
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html')
@@ -17,3 +18,7 @@ app.get('/', (req, res) => {
 //         console.log(`Connected to ${dbName} Database`)
 //         db = client.db(dbName)
 //     })
+
+app.listen(PORT, () => {
+    console.log(`We are live on port ${PORT}`)
+})
