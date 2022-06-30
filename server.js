@@ -7,12 +7,14 @@ app.set("view engine", "ejs"); //tells express that we are using EJS as template
 
 let db,
     dbConnectionStr = process.env.DB_STRING,
-    dbName = "credit-card-recorder";
+    dbName = "credit-card-recorder",
+    cardCollection;
 
 MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
     .then((client) => {
         console.log(`Connected to the ${dbName} database`);
         db = client.db(dbName);
+        cardCollection = db.collection("cards");
     })
     .catch((error) => console.error(error));
 
@@ -21,7 +23,7 @@ MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
 // });
 
 app.get("/", (request, response) => {
-    db.collection("creditCards")
+    cardCollection
         .find()
         .sort({ likes: -1 })
         .toArray()
@@ -32,11 +34,11 @@ app.get("/", (request, response) => {
 });
 
 app.post("/creditcards", (request, response) => {
-    db.collection("creditCards")
+    cardCollection
         .insertOne({
-            stageName: request.body.stageName,
-            birthName: request.body.birthName,
-            likes: 0,
+            cardIssuer: request.body.cardIssuer,
+            cardName: request.body.cardName,
+            points: 0,
         })
         .then((result) => {
             console.log("Rapper Added");
