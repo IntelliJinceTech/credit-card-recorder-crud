@@ -14,7 +14,7 @@ MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
     .then((client) => {
         console.log(`Connected to the ${dbName} database`);
         db = client.db(dbName);
-        cardCollection = db.collection("cards");
+        // cardCollection = db.collection("cards");
     })
     .catch((error) => console.error(error));
 
@@ -23,9 +23,9 @@ MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
 // });
 
 app.get("/", (request, response) => {
-    cardCollection
+    db.collection("cards")
         .find()
-        .sort({ likes: -1 })
+        .sort({ points: -1 })
         .toArray()
         .then((data) => {
             response.render("index.ejs", { info: data });
@@ -34,7 +34,7 @@ app.get("/", (request, response) => {
 });
 
 app.post("/creditcards", (request, response) => {
-    cardCollection
+    db.collection("cards")
         .insertOne({
             cardIssuer: request.body.cardIssuer,
             cardName: request.body.cardName,
