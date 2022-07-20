@@ -12,6 +12,7 @@
         <h1>Credit Card Recorder</h1>
 
         <section>
+            <h2>Credit Card Input Area</h2>
             <form action="/creditcards" method="POST">
                 <div>
                     <label for="company">Enter Credit Card Company:</label>
@@ -23,6 +24,24 @@
                 </div>
                 <input type="submit">
             </form>
+        </section>
+        <section>
+            <h2>Current Credit Cards</h2>
+            <ul class="creditCards">
+                <% for(let i=0; i < info.length; i++) { %>
+                    <li class="creditCard">
+                        <span>
+                            <%= info[i].cardIssuer %>
+                        </span>
+                        <span>
+                            <%= info[i].cardName %>
+                        </span>
+                        <span>
+                            <%= info[i].points %>
+                        </span>
+                    </li>
+                    <% } %>
+            </ul>
         </section>
     </body>
 
