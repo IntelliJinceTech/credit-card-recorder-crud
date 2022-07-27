@@ -1,0 +1,11 @@
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+label {
+    display: block;
+}
+
+.fa-plus {
+    letter-spacing: 2px;
+}

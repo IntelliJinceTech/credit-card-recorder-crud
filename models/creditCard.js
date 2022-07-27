@@ -18,6 +18,8 @@ const creditCardSchema = new mongoose.Schema({
     points: {
         type: Number,
         required: true,
+        min: 0,
+        max: 10000000,
     },
 });
 
