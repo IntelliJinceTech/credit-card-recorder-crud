@@ -55,6 +55,31 @@ app.post("/", async (req, res) => {
     }
 });
 
+//edit or update method
+app.route("/edit/:id").get((req, res) => {
+    const id = req.params.id;
+    CreditCard.find({}, (err, cards) => {
+        res.render("edit.ejs", {
+            creditCard: cards,
+            idCard: id,
+        });
+    }).post((req, res) => {
+        const id = req.params.id;
+        CreditCard.findByIdAndUpdate(
+            id,
+            {
+                cardIssuer: req.body.cardIssuer,
+                cardName: req.body.cardName,
+                points: req.body.points,
+            },
+            (err) => {
+                if (err) return res.status(500).send(err);
+                res.redirect("/");
+            }
+        );
+    });
+});
+
 app.listen(PORT, () => {
     console.log(`We are live on port ${PORT}`);
 });

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Credit Cards Recorder</title>
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/2bca696cf0.js" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <h1>Credit Card Recorder</h1>
+
+        <section class="credit-card-container">
+            <h2>Edit Credit Card</h2>
+            <ul class="creditCards-list">
+                <% creditCard.forEach(card=> { %>
+                    <% if (card._id==idCard) { %>
+                        <li class="card-list-item">
+                            <form action="/edit/<%= card._id %>" method="POST">
+                                <form action="/" method="POST" class="card-header">
+                                    <label for="cardIssuer">Enter Credit Card Company:</label>
+                                    <input type="text" name="cardIssuer" placeholder="e.g. Chase"
+                                        value="<% card.cardIssuer %> ">
+                                    <label for="cardName">Enter Card Name:</label>
+                                    <input type="text" name="cardName" placeholder="e.g. Sapphire Reserved"
+                                        value="<% card.cardName %> ">
+                                    <label for="points">Points:</label>
+                                    <input type="number" name="points" value="<% card.points %> ">
+                                    <button type="submit" class="confirm">Confirm</button>
+                                    <a href="/" class="cancel">Cancel</a>
+                                </form>
+                            </form>
+                        </li>
+                        <% } else { %>
+                            <li class="card-list-item">
+                                <span class="todo-list-item-cardIssuer">
+                                    <%= card.cardIssuer %>
+                                </span>
+                                <span class="todo-list-item-cardName">
+                                    <%= card.cardName %>
+                                </span>
+                                <span class="todo-list-item-points">
+                                    <%= card.points %>
+                                </span>
+                                <a href="/edit/<%= card._id %>" class="edit">
+                                    <span class="fas fa-edit"></span>
+                                </a>
+                                <a href="/remove/<%= card._id %>" class="remove">
+                                    <span class="fas fa-times"></span>
+                                </a>
+                            </li>
+                            <% } %>
+                                <% }) %>
+
+        </section>
+        <script src="main.js"></script>
+    </body>
+
+</html>
