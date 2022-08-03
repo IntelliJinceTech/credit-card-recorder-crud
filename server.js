@@ -49,6 +49,7 @@ app.post("/", async (req, res) => {
     try {
         await creditCard.save();
         console.log(creditCard);
+        console.log(creditCard.points);
         res.redirect("/");
     } catch (error) {
         console.error(error);
@@ -60,7 +61,7 @@ app.post("/", async (req, res) => {
 //edit or update method
 app.route("/edit/:id").get((req, res) => {
     const id = req.params.id;
-    console.log(req.params.id);
+    // console.log(req.params.points);
     CreditCard.find({}, (err, cards) => {
         res.render("edit.ejs", {
             creditCard: cards,
