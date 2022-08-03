@@ -49,7 +49,7 @@ app.post("/", async (req, res) => {
     try {
         await creditCard.save();
         console.log(creditCard);
-        console.log(creditCard.points);
+        // console.log(creditCard.points);
         res.redirect("/");
     } catch (error) {
         console.error(error);
