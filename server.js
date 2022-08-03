@@ -12,6 +12,8 @@ app.set("view engine", "ejs"); //tells express that we are using EJS as template
 app.use(express.static("public")); //ask express to use the public folder
 app.use(express.urlencoded({ extended: true })); //help validate user input  - allows us to send arrays/objects/json
 
+app.use(express.json()); //tells express to automatically parse JSON payloads and make that available in the request body
+
 let db,
     dbConnectionStr = process.env.DB_CONNECTION,
     dbName = "credit-card-recorder",
@@ -58,6 +60,7 @@ app.post("/", async (req, res) => {
 //edit or update method
 app.route("/edit/:id").get((req, res) => {
     const id = req.params.id;
+    console.log(req.params.id);
     CreditCard.find({}, (err, cards) => {
         res.render("edit.ejs", {
             creditCard: cards,
