@@ -31,25 +31,25 @@
         <section>
             <h2>Current Credit Cards</h2>
             <ul class="creditCards-list">
-                <% creditCard.forEach(card=> { %>
+                <%creditCard.forEach(card=> {%>
                     <li class="card-list-item">
                         <span class="todo-list-item-cardIssuer">
-                            <%= card.cardIssuer %>
+                            <%=card.cardIssuer%>
                         </span>
                         <span class="todo-list-item-cardName">
-                            <%= card.cardName %>
+                            <%=card.cardName%>
                         </span>
                         <span class="todo-list-item-points">
-                            <%= card.points %>
+                            <%=card.points%>
                         </span>
-                        <a href="/edit/<%= card._id %>" class="edit">
+                        <a href="/edit/<%=card._id%>" class="edit">
                             <span class="fas fa-edit"></span>
                         </a>
-                        <a href="/remove/<%= card._id %>" class="remove">
+                        <a href="/remove/<%=card._id%>" class="remove">
                             <span class="fas fa-times"></span>
                         </a>
                     </li>
-                    <% }) %>
+                    <%})%>
             </ul>
         </section>
         <script src="/js/main.js"></script>

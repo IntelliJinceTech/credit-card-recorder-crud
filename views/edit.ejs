@@ -19,38 +19,37 @@
         <section class="credit-card-container">
             <h2>Edit Credit Card</h2>
             <ul class="creditCards-list">
-                <% creditCard.forEach(card=> { %>
-                    <% console.log(typeof card.points) %>
-                        <% if (card._id==idCard) { %>
+                <% creditCards.forEach(card=> { %>
+                    <% if ((card._id).toString()==idCard) { %>
+                        <li class="card-list-item">
+                            <form action="/edit/<%= card._id %>" method="POST">
+                                <input type="text" value="<%= card.cardIssuer %>" name="cardIssuer">
+                                <input type="text" value="<%= card.cardName %>" name="cardIssuer">
+                                <input type="number" value="<%= card.points %>" name="cardIssuer">
+                                <button type="submit" class="confirm">Confirm</button>
+                                <a href="/" class="cancel">Cancel</a>
+                            </form>
+                        </li>
+                        <% } else { %>
                             <li class="card-list-item">
-                                <form action="/edit/<%= card._id %>" method="POST">
-                                    <input type="text" value="<% card.cardIssuer %> " name="cardIssuer">
-                                    <input type="text" name="cardName" value="<% card.cardName %> ">
-                                    <input name="points" value="<% card.points %> " type="number">
-                                    <button type="submit" class="confirm">Confirm</button>
-                                    <a href="/" class="cancel">Cancel</a>
-                                </form>
+                                <span class="item-cardIssuer">
+                                    <%= card.cardIssuer %>
+                                </span>
+                                <span class="item-cardName">
+                                    <%= card.cardName %>
+                                </span>
+                                <span class="item-points">
+                                    <%= card.points %>
+                                </span>
+                                <a href="/edit/<%= card._id %>" class="edit">
+                                    <span class="fas fa-edit"></span>
+                                </a>
+                                <a href="/remove/<%= card._id %>" class="remove">
+                                    <span class="fas fa-times"></span>
+                                </a>
                             </li>
-                            <% } else { %>
-                                <li class="card-list-item">
-                                    <span class="todo-list-item-cardIssuer">
-                                        <%= card.cardIssuer %>
-                                    </span>
-                                    <span class="todo-list-item-cardName">
-                                        <%= card.cardName %>
-                                    </span>
-                                    <span class="todo-list-item-points">
-                                        <%= card.points %>
-                                    </span>
-                                    <a href="/edit/<%= card._id %>" class="edit">
-                                        <span class="fas fa-edit"></span>
-                                    </a>
-                                    <a href="/remove/<%= card._id %>" class="remove">
-                                        <span class="fas fa-times"></span>
-                                    </a>
-                                </li>
-                                <% } %>
-                                    <% }) %>
+                            <% } %>
+                                <% }) %>
             </ul>
         </section>
         <script src="/js/main.js"></script>

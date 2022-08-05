@@ -12,17 +12,10 @@ app.set("view engine", "ejs"); //tells express that we are using EJS as template
 app.use(express.static("public")); //ask express to use the public folder
 app.use(express.urlencoded({ extended: true })); //help validate user input  - allows us to send arrays/objects/json
 
-app.use(express.json()); //tells express to automatically parse JSON payloads and make that available in the request body
+// app.use(express.json());
+//tells express to automatically parse JSON payloads and make that available in the request body
 
-let db,
-    dbConnectionStr = process.env.DB_CONNECTION,
-    dbName = "credit-card-recorder",
-    cardCollection;
-
-mongoose.connect(dbConnectionStr, { useNewUrlParser: true }, (err) => {
-    if (err) {
-        return console.error(err);
-    }
+mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, () => {
     console.log("Connected to db!");
 });
 
@@ -49,11 +42,9 @@ app.post("/", async (req, res) => {
     try {
         await creditCard.save();
         console.log(creditCard);
-        // console.log(creditCard.points);
         res.redirect("/");
     } catch (error) {
-        console.error(error);
-        // console.log(creditCard);
+        if (err) return res.status(500).send(err);
         res.redirect("/");
     }
 });
@@ -64,7 +55,7 @@ app.route("/edit/:id").get((req, res) => {
     // console.log(req.params.points);
     CreditCard.find({}, (err, cards) => {
         res.render("edit.ejs", {
-            creditCard: cards,
+            creditCards: cards,
             idCard: id,
         });
     }).post((req, res) => {
@@ -81,6 +72,14 @@ app.route("/edit/:id").get((req, res) => {
                 res.redirect("/");
             }
         );
+    });
+});
+
+app.route("/remove/:id").get((req, res) => {
+    const id = req.params.id;
+    CreditCard.findByIdAndRemove(id, (err) => {
+        if (err) return res.send(500, err);
+        res.redirect("/");
     });
 });
 
