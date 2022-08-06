@@ -6,27 +6,25 @@
 // ?    Points
 
 const mongoose = require("mongoose");
-// const creditCardSchema = new mongoose.Schema({
-//     cardIssuer: {
-//         type: String,
-//         required: true,
-//     },
-//     cardName: {
-//         type: String,
-//         required: true,
-//     },
-//     points: {
-//         type: Number,
-//         required: true,
-//         min: 0,
-//         max: 10000000,
-//     },
-// });
 const creditCardSchema = new mongoose.Schema({
-    cardIssuer: String,
-    cardName: String,
-    points: Number,
+    cardIssuer: {
+        type: String,
+        required: true,
+    },
+    cardName: {
+        type: String,
+        required: true,
+    },
+    points: {
+        type: Number,
+        required: true,
+    },
 });
+// const creditCardSchema = new mongoose.Schema({
+//     cardIssuer: String,
+//     cardName: String,
+//     points: Number,
+// });
 
 //module exports with parameters of a name, the schema name, and the specific mongodb collection
 module.exports = mongoose.model(
