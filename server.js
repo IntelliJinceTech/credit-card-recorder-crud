@@ -50,15 +50,14 @@ app.post("/", async (req, res) => {
 });
 
 //edit or update method
-app.route("/edit/:id").get((req, res) => {
-    const id = req.params.id;
-    // console.log(req.params.points);
-    CreditCard.find({}, (err, cards) => {
-        res.render("edit.ejs", {
-            creditCards: cards,
-            idCard: id,
+app.route("/edit/:id")
+    .get((req, res) => {
+        const id = req.params.id;
+        CreditCard.find({}, (err, cards) => {
+            res.render("edit.ejs", { creditCards: cards, idCard: id });
         });
-    }).post((req, res) => {
+    })
+    .post((req, res) => {
         const id = req.params.id;
         CreditCard.findByIdAndUpdate(
             id,
@@ -73,33 +72,6 @@ app.route("/edit/:id").get((req, res) => {
             }
         );
     });
-});
-// app.route("/edit/:id")
-//     .get((req, res) => {
-//         const id = req.params.id;
-//         CreditCard.find({}, (err, cards) => {
-//             res.render("edit.ejs", {
-//                 creditCards: cards,
-//                 idCard: id,
-//             });
-//         });
-//     })
-//     .post((req, res) => {
-//         const id = req.params.id;
-//         CreditCard.findByIdAndUpdate(
-//             id,
-//             {
-//                 cardIssuer: req.body.cardIssuer,
-//                 cardName: req.body.cardName,
-//                 points: req.body.points,
-//             },
-
-//             (err) => {
-//                 if (err) return res.status(500).send(err);
-//                 res.redirect("/");
-//             }
-//         );
-//     });
 
 app.route("/remove/:id").get((req, res) => {
     const id = req.params.id;
